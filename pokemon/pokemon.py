@@ -1,3 +1,16 @@
+class color:
+    PURPLE = '\033[95m'
+    CYAN = '\033[96m'
+    DARKCYAN = '\033[36m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
+
+
 class Pokemon:
     def __init__(self, name, type, level):
 
@@ -12,7 +25,7 @@ class Pokemon:
     def __repr__(self):
 
         # Pokemon information
-        return "-----Pokemons----- \nNAME/ {name} \nTYPE/ {type} \nLVL/ {level} \nHEALTH/ {health}".format(level=self.level, name=self.name, health=self.health, type=self.type)
+        return "\n{red}-----Pokemon-----{end} \nNAME/ {name} \nTYPE/ {type} \nLVL/ {level} \nHEALTH/ {health}".format(level=self.level, name=self.name, health=self.health, type=self.type, red=color.RED, end=color.END)
 
     def revive(self):
         self.is_knocked_out = False
@@ -27,7 +40,8 @@ class Pokemon:
         self.is_knocked_out = True
         if self.health != 0:
             self.health = 0
-        print("{name} was knocked out!".format(name=self.name))
+        print("{name} was knocked out!".format(
+            name=self.name))
 
         # Losing health function
     def lose_health(self, amount):
@@ -124,8 +138,8 @@ class Trainer:
     def __repr__(self):
 
         #    Current active pokemon
-        print("The trainer {name} has the following pokemon".format(
-            name=self.name))
+        print("{underline}{bold}The trainer {name} has the following pokemons:{end}".format(
+            name=self.name, bold=color.BOLD, end=color.END, underline=color.UNDERLINE))
         for pokemon in self.pokemons:
             print(pokemon)
         return "The current active pokemon is {name}\n".format(name=self.pokemons[self.current_pokemon].name)
@@ -178,10 +192,45 @@ print(trainer_one)
 print(trainer_two)
 
 # Testing attacking, giving potions, and switching pokemon.
-
+print("{underline}{bold}REAL FIGHT STARTING NOW{end}".format(
+    bold=color.BOLD, end=color.END, underline=color.UNDERLINE))
+# Trainer one
+print("{green}\nNow {name} turn:{end}".format(
+    name=trainer_one.name, green=color.GREEN, end=color.END))
 trainer_one.attack_other_trainer(trainer_two)
+# Trainer two
+print("{yellow}\nNow {name} turn:{end}".format(
+    name=trainer_two.name, yellow=color.YELLOW, end=color.END))
 trainer_two.attack_other_trainer(trainer_one)
-trainer_two.use_potion()
+# Trainer one
+print("{green}\nNow {name} turn:{end}".format(
+    name=trainer_one.name, green=color.GREEN, end=color.END))
 trainer_one.attack_other_trainer(trainer_two)
+# Trainer two
+print("{yellow}\nNow {name} turn:{end}".format(
+    name=trainer_two.name, yellow=color.YELLOW, end=color.END))
+trainer_two.use_potion()
+# Trainer one
+print("{green}\nNow {name} turn:{end}".format(
+    name=trainer_one.name, green=color.GREEN, end=color.END))
+trainer_one.attack_other_trainer(trainer_two)
+# Trainer two
+print("{yellow}\nNow {name} turn:{end}".format(
+    name=trainer_two.name, yellow=color.YELLOW, end=color.END))
+trainer_two.attack_other_trainer(trainer_one)
+# Trainer one
+print("{green}\nNow {name} turn:{end}".format(
+    name=trainer_one.name, green=color.GREEN, end=color.END))
+trainer_one.attack_other_trainer(trainer_two)
+trainer_one.switch_active_pokemon(1)
+trainer_one.attack_other_trainer(trainer_two)
+# Trainer two
+print("{yellow}\nNow {name} turn:{end}".format(
+    name=trainer_two.name, yellow=color.YELLOW, end=color.END))
 trainer_two.switch_active_pokemon(0)
 trainer_two.switch_active_pokemon(1)
+trainer_two.attack_other_trainer(trainer_one)
+# Trainer one
+print("{green}\nNow {name} turn:{end}".format(
+    name=trainer_one.name, green=color.GREEN, end=color.END))
+trainer_one.attack_other_trainer(trainer_two)
